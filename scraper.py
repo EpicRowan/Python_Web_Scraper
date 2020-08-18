@@ -4,17 +4,17 @@ import smtplib
 import time
 import config
 
-URL = ""
+
+URL = "https://www.bbc.com/news/world-africa-53787846"
 
 headers = {"User-Agent": {config.user_agent}}
-
 
 def check_headlines():
 	page = requests.get(URL, headers=headers)
 
 	soup = BeautifulSoup(page.content, 'html.parser')
 
-	title = soup.find(id="").get_text()
+	title = soup.find(property="story-body__h1").get_text()
 
 
 def send_email():
@@ -25,7 +25,7 @@ def send_email():
 
 	server.login({config.email}, {config.password})
 
-	subject = ""
+	subject = "COVID news"
 	body = ""
 	msg = f"Subject: {subject} \n\n {body}"
 
